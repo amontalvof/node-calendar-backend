@@ -10,7 +10,7 @@ const createUser = async (req, res = response) => {
         if (user) {
             return res.status(400).json({
                 ok: false,
-                message: 'There is already a user with that email',
+                message: 'Error, there is already a user with that email.',
             });
         }
 
@@ -36,15 +36,40 @@ const createUser = async (req, res = response) => {
     }
 };
 
-const loginUser = (req, res = response) => {
+const loginUser = async (req, res = response) => {
     const { email, password } = req.body;
 
-    res.json({
-        ok: true,
-        message: 'login',
-        email,
-        password,
-    });
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({
+                ok: false,
+                message: 'Error, there is no user with that email.',
+            });
+        }
+
+        //confirm passwords
+        const validPassword = bcrypt.compareSync(password, user.password);
+        if (!validPassword) {
+            return res.status(400).json({
+                ok: false,
+                message: 'Error, invalid password.',
+            });
+        }
+
+        // generate JSON Web Token
+        res.json({
+            ok: true,
+            uid: user.id,
+            name: user.name,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            message: 'Error, please talk to the administrator.',
+        });
+    }
 };
 
 const renewToken = (req, res = response) => {
