@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { dbConnection } = require('./database/config');
 require('dotenv').config();
 
@@ -8,11 +9,14 @@ const app = express();
 // Database
 dbConnection();
 
-// body reading and parsing
-app.use(express.json());
+//CORS
+app.use(cors());
 
 // public directory
 app.use(express.static('public'));
+
+// body reading and parsing
+app.use(express.json());
 
 // routes
 app.use('/api/auth', require('./routes/auth'));
