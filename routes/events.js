@@ -4,7 +4,10 @@
  */
 
 const { Router } = require('express');
+const { check } = require('express-validator');
 const { validateJsonWebToken } = require('../middlewares/validate-jwt');
+const { validateFields } = require('../middlewares/validate-fields');
+const { isDate } = require('../helpers/isDate');
 const {
     createEvent,
     readEvent,
@@ -18,7 +21,20 @@ const router = Router();
 router.use(validateJsonWebToken);
 
 // create event
-router.post('/', createEvent);
+router.post(
+    '/',
+    [
+        check('title', 'Error, the title is required.').not().isEmpty(),
+        check('start', 'Error, the start date require a valid date.').custom(
+            isDate
+        ),
+        check('end', 'Error, the end date require a valid date.').custom(
+            isDate
+        ),
+        validateFields,
+    ],
+    createEvent
+);
 
 // read event
 router.get('/', readEvent);
