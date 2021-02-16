@@ -1,6 +1,7 @@
 const { response } = require('express');
 
 const createEvent = async (req, res = response) => {
+    console.log(req.body);
     res.json({
         ok: true,
         message: 'create event',
