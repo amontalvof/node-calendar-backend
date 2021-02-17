@@ -40,7 +40,20 @@ router.post(
 router.get('/', readEvent);
 
 // update event
-router.put('/:id', updateEvent);
+router.put(
+    '/:id',
+    [
+        check('title', 'Error, the title is required.').not().isEmpty(),
+        check('start', 'Error, the start date require a valid date.').custom(
+            isDate
+        ),
+        check('end', 'Error, the end date require a valid date.').custom(
+            isDate
+        ),
+        validateFields,
+    ],
+    updateEvent
+);
 
 // delete event
 router.delete('/:id', deleteEvent);
