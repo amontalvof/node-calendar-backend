@@ -20,9 +20,10 @@ const createEvent = async (req, res = response) => {
 };
 
 const readEvent = async (req, res = response) => {
+    const events = await Event.find().populate('user', 'name');
     res.json({
         ok: true,
-        message: 'get event',
+        events,
     });
 };
 
