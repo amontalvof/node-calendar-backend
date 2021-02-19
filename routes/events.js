@@ -24,13 +24,9 @@ router.use(validateJsonWebToken);
 router.post(
     '/',
     [
-        check('title', 'Error, the title is required.').not().isEmpty(),
-        check('start', 'Error, the start date require a valid date.').custom(
-            isDate
-        ),
-        check('end', 'Error, the end date require a valid date.').custom(
-            isDate
-        ),
+        check('title', 'The title is required.').not().isEmpty(),
+        check('start', 'The start date require a valid date.').custom(isDate),
+        check('end', 'The end date require a valid date.').custom(isDate),
         validateFields,
     ],
     createEvent
@@ -43,13 +39,9 @@ router.get('/', readEvent);
 router.put(
     '/:id',
     [
-        check('title', 'Error, the title is required.').not().isEmpty(),
-        check('start', 'Error, the start date require a valid date.').custom(
-            isDate
-        ),
-        check('end', 'Error, the end date require a valid date.').custom(
-            isDate
-        ),
+        check('title', 'The title is required.').not().isEmpty(),
+        check('start', 'The start date require a valid date.').custom(isDate),
+        check('end', 'The end date require a valid date.').custom(isDate),
         validateFields,
     ],
     updateEvent

@@ -11,7 +11,7 @@ const createUser = async (req, res = response) => {
         if (user) {
             return res.status(400).json({
                 ok: false,
-                message: 'Error, there is already a user with that email.',
+                message: 'There is already a user with that email.',
             });
         }
 
@@ -36,7 +36,7 @@ const createUser = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            message: 'Error, please talk to the administrator.',
+            message: 'Please talk to the administrator.',
         });
     }
 };
@@ -49,7 +49,7 @@ const loginUser = async (req, res = response) => {
         if (!user) {
             return res.status(400).json({
                 ok: false,
-                message: 'Error, there is no user with that email.',
+                message: 'There is no user with that email.',
             });
         }
 
@@ -58,7 +58,7 @@ const loginUser = async (req, res = response) => {
         if (!validPassword) {
             return res.status(400).json({
                 ok: false,
-                message: 'Error, invalid password.',
+                message: 'Invalid password.',
             });
         }
 
@@ -75,7 +75,7 @@ const loginUser = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            message: 'Error, please talk to the administrator.',
+            message: 'Please talk to the administrator.',
         });
     }
 };
@@ -88,6 +88,8 @@ const renewToken = async (req, res = response) => {
 
     res.json({
         ok: true,
+        uid,
+        name,
         token,
     });
 };

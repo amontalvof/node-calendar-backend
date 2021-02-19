@@ -7,7 +7,7 @@ const validateJsonWebToken = (req, res = response, next) => {
     if (!token) {
         return res.status(401).json({
             ok: false,
-            message: 'Error, there is no token in the request.',
+            message: 'There is no token in the request.',
         });
     }
 
@@ -19,7 +19,7 @@ const validateJsonWebToken = (req, res = response, next) => {
         console.log(error);
         return res.status(401).json({
             ok: false,
-            message: 'Error, invalid token.',
+            message: 'Invalid token.',
         });
     }
     next();

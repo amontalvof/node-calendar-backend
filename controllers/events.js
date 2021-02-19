@@ -14,7 +14,7 @@ const createEvent = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            message: 'Error, please talk to the administrator.',
+            message: 'Please talk to the administrator.',
         });
     }
 };
@@ -35,13 +35,13 @@ const updateEvent = async (req, res = response) => {
         if (!event) {
             return res.status(404).json({
                 ok: false,
-                message: 'Error, there is no event for that id.',
+                message: 'There is no event for that id.',
             });
         }
         if (event.user.toString() !== uid) {
             return res.status(401).json({
                 ok: false,
-                message: 'Error, do not have the privilege to edit this event.',
+                message: 'You do not have the privilege to edit this event.',
             });
         }
         const newEvent = { ...req.body, user: uid };
@@ -56,7 +56,7 @@ const updateEvent = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            message: 'Error, please talk to the administrator.',
+            message: 'Please talk to the administrator.',
         });
     }
 };
@@ -69,14 +69,13 @@ const deleteEvent = async (req, res = response) => {
         if (!event) {
             return res.status(404).json({
                 ok: false,
-                message: 'Error, there is no event for that id.',
+                message: 'There is no event for that id.',
             });
         }
         if (event.user.toString() !== uid) {
             return res.status(401).json({
                 ok: false,
-                message:
-                    'Error, do not have the privilege to delete this event.',
+                message: 'You do not have the privilege to delete this event.',
             });
         }
         await Event.findByIdAndDelete(eventId);
@@ -87,7 +86,7 @@ const deleteEvent = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            message: 'Error, please talk to the administrator.',
+            message: 'Please talk to the administrator.',
         });
     }
 };
